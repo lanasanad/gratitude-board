@@ -1,95 +1,58 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import * as React from "react";
+import Typography from "@mui/joy/Typography";
+import Button from "@mui/joy/Button";
+import Card from "@mui/joy/Card";
+import CardContent from "@mui/joy/CardContent";
+import Box from "@mui/joy/Box";
+import Textarea from "@mui/joy/Textarea";
+import Add from "@mui/icons-material/Add";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <Box padding="20px">
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <Box display="flex" justifyContent="space-between" marginBottom="50px">
+        <Box>
+          <Typography level="h1">Gratitudes</Typography>
+          <Typography level="title-lg">A community board for sharing everyday gratitudes ✨</Typography>
+        </Box>
+        <Box alignSelf="flex-start">
+          <Button variant="soft" startDecorator={<Add />}>
+            Add gratitude
+          </Button>
+        </Box>
+      </Box>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+      <Card
+        variant="outlined"
+        sx={{
+          minHeight: "280px",
+          width: 320,
+          backgroundColor: "#e6e6fa",
+          borderColor: "#000",
+          border: "2px solid",
+        }}
+      >
+        <Typography level="h2" fontSize="lg" textColor="#000">
+          My Gratitude
+        </Typography>
+
+        <CardContent
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            background: "#b0c4de",
+            border: "1px solid",
+            borderColor: "#000",
+          }}
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+          <Textarea
+            size="sm"
+            placeholder="I am grateful for.."
+            variant="plain"
+          />
+        </CardContent>
+      </Card>
+    </Box>
+  );
 }
