@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import * as React from "react";
 import Typography from "@mui/joy/Typography";
@@ -8,41 +8,38 @@ import Add from "@mui/icons-material/Add";
 import { PostGrid } from "./components/PostGrid";
 import { useState } from "react";
 import { Modal } from "@mui/material";
-import { DialogTitle, ModalDialog, Textarea } from "@mui/joy";
+import { DialogTitle, ModalDialog, Input } from "@mui/joy";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
-//import {v4 as uuidv4} from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
-  // let myuuid = uuidv4();
-
-  function savePost() {
-    console.log("enters")
+  function savePost(postTitle: string) {
+    const id = uuidv4();
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    set(ref(db, "/posts"), {
-      title: "I am grateful for dogs",
-      description: "becasue they are adorable",
 
+    const path = "posts/" + id;
+    console.log(path);
+    set(ref(db,path), {
+      title: postTitle,
     });
   }
 
-
   const firebaseConfig = {
     databaseURL: "https://gratitudeboard-default-rtdb.firebaseio.com",
-    
+
     apiKey: "AIzaSyBd8-lppHWAGCyv8_yyqkAI5ohcFW_1MZs",
     authDomain: "gratitudeboard.firebaseapp.com",
     projectId: "gratitudeboard",
     storageBucket: "gratitudeboard.appspot.com",
     messagingSenderId: "993228113683",
     appId: "1:993228113683:web:33dce4ea20305235123ce6",
-    measurementId: "G-CS1L97CFDN"
+    measurementId: "G-CS1L97CFDN",
   };
-  
-  
-  const [openForm, setOpenForm] = useState(false)
+
+  const [openForm, setOpenForm] = useState(false);
+  const [postTitle, setPostTitle] = useState("");
 
   return (
     <Box padding="30px">
@@ -56,7 +53,11 @@ export default function Home() {
           </Typography>
         </Box>
         <Box alignSelf="flex-start">
-          <Button variant="soft" startDecorator={<Add />} onClick={() => setOpenForm(true)}>
+          <Button
+            variant="soft"
+            startDecorator={<Add />}
+            onClick={() => setOpenForm(true)}
+          >
             Add gratitude
           </Button>
         </Box>
@@ -66,14 +67,28 @@ export default function Home() {
       </Box>
 
       <Modal open={openForm} onClose={() => setOpenForm(false)}>
-        <ModalDialog> 
+        <ModalDialog>
           <DialogTitle> Add gratitude</DialogTitle>
-          <Textarea minRows={3} placeholder="I am grateful for..."  ></Textarea>
-          <Button variant="soft" onClick={() => savePost()} >Submit</Button>
+          <Input
+            value={postTitle}
+            onChange={(event) => {
+              setPostTitle(event.target.value);
+            }}
+            placeholder="I am grateful for..."
+          />
+          <Button
+            type="submit"
+            variant="soft"
+            onClick={() => {
+              savePost(postTitle)
+              setOpenForm(false)
+              setPostTitle('')
+            }}
+          >
+            Submit
+          </Button>
         </ModalDialog>
-
       </Modal>
-
     </Box>
   );
 }

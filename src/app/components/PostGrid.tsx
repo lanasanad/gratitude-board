@@ -1,18 +1,43 @@
 import { Grid, Card, CardContent, Typography } from "@mui/joy";
+import { initializeApp } from "firebase/app";
+import { getDatabase, onValue, ref } from "firebase/database";
 
+type Post = {
+  title: String
+}
 export function PostGrid() {
-  const gratitudeList = [
-    "For myself!",
-    "I am grateful for the chirping panther",
-    "I am grateful for the chirping mimi and her cute cat ears",
-    "I am grateful for the chirping elephant, I am grateful for the chirping elephant.",
-    "I am grateful for the chirping lion",
-    "I am grateful for the chirping monkey",
-  ];
+  const firebaseConfig = {
+    databaseURL: "https://gratitudeboard-default-rtdb.firebaseio.com",
+    apiKey: "AIzaSyBd8-lppHWAGCyv8_yyqkAI5ohcFW_1MZs",
+    authDomain: "gratitudeboard.firebaseapp.com",
+    projectId: "gratitudeboard",
+    storageBucket: "gratitudeboard.appspot.com",
+    messagingSenderId: "993228113683",
+    appId: "1:993228113683:web:33dce4ea20305235123ce6",
+    measurementId: "G-CS1L97CFDN",
+  };
+  
+  function getAllPosts(): Post[] {
+    console.log("hello")
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const posts = ref(db, "posts/");
 
+    let postList = [] as Post[]
+
+    onValue(posts, (snapshot) => {
+      const map = snapshot.val(); // map, key = id, value object {title: "blabhhdhbd"}
+      postList = Object.values(map) // = [{title: "parrot"}, {title: "get loose"}]
+    });
+
+    return postList;
+  }
+
+  const posts = getAllPosts()
+  
   return (
     <Grid container spacing={3}>
-      {gratitudeList.map((post, index) => (
+      {posts.map((post, index) => (
         <Grid key={index}>
           <Card
             variant="solid"
@@ -23,7 +48,7 @@ export function PostGrid() {
             }}
           >
             <CardContent>
-              <Typography level="body-md">{post}</Typography>
+              <Typography level="body-md">{post.title}</Typography>
             </CardContent>
           </Card>
         </Grid>
