@@ -1,39 +1,28 @@
 import { Grid, Card, CardContent, Typography } from "@mui/joy";
+import axios from "axios";
 import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, ref } from "firebase/database";
+import { useEffect, useState } from "react";
 
 type Post = {
   title: String
 }
 export function PostGrid() {
-  const firebaseConfig = {
-    databaseURL: "https://gratitudeboard-default-rtdb.firebaseio.com",
-    apiKey: "AIzaSyBd8-lppHWAGCyv8_yyqkAI5ohcFW_1MZs",
-    authDomain: "gratitudeboard.firebaseapp.com",
-    projectId: "gratitudeboard",
-    storageBucket: "gratitudeboard.appspot.com",
-    messagingSenderId: "993228113683",
-    appId: "1:993228113683:web:33dce4ea20305235123ce6",
-    measurementId: "G-CS1L97CFDN",
-  };
-  
-  function getAllPosts(): Post[] {
-    console.log("hello")
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const posts = ref(db, "posts/");
+  const [posts, setPosts] = useState<Post[]>([])
 
-    let postList = [] as Post[]
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://us-central1-gratitudeboard.cloudfunctions.net/app/posts');
+        setPosts(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-    onValue(posts, (snapshot) => {
-      const map = snapshot.val(); // map, key = id, value object {title: "blabhhdhbd"}
-      postList = Object.values(map) // = [{title: "parrot"}, {title: "get loose"}]
-    });
+    fetchData();
+  }, []);
 
-    return postList;
-  }
-
-  const posts = getAllPosts()
   
   return (
     <Grid container spacing={3}>
