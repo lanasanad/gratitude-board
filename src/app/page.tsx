@@ -12,18 +12,28 @@ import { DialogTitle, ModalDialog, Input } from "@mui/joy";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+
+type Post = {
+  title: string;
+}
+
 
 export default function Home() {
-  function savePost(postTitle: string) {
-    const id = uuidv4();
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    const path = "posts/" + id;
-    console.log(path);
-    set(ref(db,path), {
-      title: postTitle,
-    });
+  async function savePost(postTitle: string) {
+    const post: Post = {
+      title: postTitle
+    }
+    try {
+      await axios.post('https://us-central1-gratitudeboard.cloudfunctions.net/app/posts', post, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      }
+    )} catch (error) {
+      console.error('Error fetching data:', error);
+    }
   }
 
   const firebaseConfig = {
@@ -49,7 +59,7 @@ export default function Home() {
             Gratitudes
           </Typography>
           <Typography level="title-lg">
-            A community board for sharing everyday gratitudes ✨
+            A community board for sharing  gratitudes ✨
           </Typography>
         </Box>
         <Box alignSelf="flex-start">
@@ -62,8 +72,9 @@ export default function Home() {
           </Button>
         </Box>
       </Box>
+      {/* posted gratitude cards  */}
       <Box display="flex" justifyContent="center">
-        <PostGrid />
+        <PostGrid />   
       </Box>
 
       <Modal open={openForm} onClose={() => setOpenForm(false)}>
@@ -79,8 +90,8 @@ export default function Home() {
           <Button
             type="submit"
             variant="soft"
-            onClick={() => {
-              savePost(postTitle)
+            onClick={async () => {
+              await savePost(postTitle)
               setOpenForm(false)
               setPostTitle('')
             }}
