@@ -13,11 +13,12 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import { Grid, Card, CardContent } from "@mui/joy";
+import IconButton from '@mui/material/IconButton';
 
 type Post = {
   title: string;
 }
-
 
 export default function Home() {
   async function savePost(postTitle: string) {
@@ -38,7 +39,6 @@ export default function Home() {
 
   const firebaseConfig = {
     databaseURL: "https://gratitudeboard-default-rtdb.firebaseio.com",
-
     apiKey: "AIzaSyBd8-lppHWAGCyv8_yyqkAI5ohcFW_1MZs",
     authDomain: "gratitudeboard.firebaseapp.com",
     projectId: "gratitudeboard",
@@ -52,19 +52,58 @@ export default function Home() {
   const [postTitle, setPostTitle] = useState("");
 
   return (
+    <Box
+    sx={{
+    backgroundImage: 'url("flowers.png")',
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    minHeight: "100vh",
+    //padding: "30px",
+    boxSizing: "border-box",
+    }}
+    >
+
+
+
     <Box padding="30px">
       <Box display="flex" justifyContent="space-between" marginBottom="40px">
         <Box>
-          <Typography level="h1" mb={1}>
-            Gratitudes
+          <Typography
+          level="h1"
+          mb={1}
+          sx={{
+          fontFamily: 'BlinkMacSystemFont',
+          fontSize: "500%",
+          fontWeight: "bold",
+          }}
+          >
+          Grateful.
           </Typography>
-          <Typography level="title-lg">
-            A community board for sharing  gratitudes ✨
-          </Typography>
+          {/* '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"', */}
+
+      <Typography
+        level="title-lg"
+        sx={{
+          fontFamily: '"Segoe UI"',
+          fontSize: '120%',
+        }}
+      >
+        A community board for sharing lifes gratitudes, no matter how big or small ✨
+      </Typography>
         </Box>
         <Box alignSelf="flex-start">
           <Button
             variant="soft"
+            size="lg"
             startDecorator={<Add />}
             onClick={() => setOpenForm(true)}
           >
@@ -101,5 +140,7 @@ export default function Home() {
         </ModalDialog>
       </Modal>
     </Box>
+  </Box>
+  
   );
 }

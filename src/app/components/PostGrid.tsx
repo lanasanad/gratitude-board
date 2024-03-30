@@ -4,9 +4,13 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 
-type Post = {
+export type Post = {
   title: String
 }
+// type PostGridProps = {
+//   posts: Post[];
+// };
+
 export function PostGrid() {
   const [posts, setPosts] = useState<Post[]>([])
 
@@ -52,19 +56,30 @@ export function PostGrid() {
 }, []);
   
   return (
-    <Grid container spacing={3}>
+<Grid container spacing={3}>
       {posts.map((post, index) => (
-        <Grid key={index}>
-          <Card
-            variant="solid"
-            sx={{
-              height: "70px",
-              width: "280px",
-              backgroundColor: "#e6e6fa",
-            }}
-          >
-            <CardContent>
-              <Typography level="body-md">{post.title}</Typography>
+        <Grid key={index} xs={12} sm={6} md={4} lg={4} xl={4}>
+          <Card variant="outlined">
+            <CardContent
+              sx={{
+                borderRadius: '16px',
+                backgroundColor: "#FFFAF0",//inner
+                paddingX: 4,
+                paddingTop: 3.5,
+                paddingBottom: 3.5,
+                wordWrap: "break-word",
+              }}
+            >
+              <Typography
+                level="body-md"
+                sx={{
+                  borderRadius: '64px',
+                  fontFamily: "Arial, sans-serif",
+                  fontSize: "18px",
+                }}
+              >
+                {post.title}
+              </Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -72,3 +87,31 @@ export function PostGrid() {
     </Grid>
   );
 }
+//     <Grid container spacing={3}>
+//       {posts.map((post, index) => (
+//         <Grid key={index}>
+//           <Card variant="solid"
+//             sx={{
+//               height: "70px",
+//               width: "280px",
+//               backgroundColor: "#e6e6fa",
+//             }}
+//           >
+//              <CardContent>
+//               <Typography
+//                 level="body-md"
+//                 sx={{
+//                   fontFamily: '"Segoe UI"', 
+//                   //fontWeight: "bold",                  
+//                   fontSize: "16px", 
+//                 }}
+//               >
+//                 {post.title}
+//               </Typography>
+//             </CardContent>
+//           </Card>
+//         </Grid>
+//       ))}
+//     </Grid>
+//   );
+// }
