@@ -1,2 +1,2 @@
-# Gratitude-Board
-A community board to share everyday recounts of gratitude
+# Grateful.
+An online community board to share everyday moments of gratitude
