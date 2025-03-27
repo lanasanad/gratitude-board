@@ -40,12 +40,21 @@ export function PostGrid() {
   return (
     <Grid container spacing={3}>
       {posts.map((post, index) => (
-        <Grid item key={index} xs={12} sm={6} md={4} lg={4} xl={4}>
+        <Grid
+          component="div"
+          key={index}
+          xs={12}
+          sm={6}
+          md={4}
+          lg={4}
+          xl={4}
+          sx={{ display: "flex" }}
+        >
           <Card variant="outlined">
             <CardContent
               sx={{
                 borderRadius: "16px",
-                backgroundColor: "#FFFAF0", // inner
+                backgroundColor: "#FFFAF0",
                 paddingX: 4,
                 paddingTop: 3.5,
                 paddingBottom: 3.5,
