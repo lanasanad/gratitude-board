@@ -50,11 +50,16 @@ export function PostGrid() {
           xl={4}
           sx={{ display: "flex" }}
         >
-          <Card variant="outlined">
+          <Card variant="outlined"
+           sx={{
+              borderRadius: "16px",
+              backgroundColor: "rgba(243, 255, 250, 0.5)",
+            }}
+            >
             <CardContent
               sx={{
                 borderRadius: "16px",
-                backgroundColor: "#FFFAF0",
+                backgroundColor: "rgba(205, 230, 224, 0.4)",
                 paddingX: 4,
                 paddingTop: 3.5,
                 paddingBottom: 3.5,
@@ -67,6 +72,7 @@ export function PostGrid() {
                   borderRadius: "64px",
                   fontFamily: "Arial, sans-serif",
                   fontSize: "18px",
+                  font: "#a5d9d0"
                 }}
               >
                 {post.title}

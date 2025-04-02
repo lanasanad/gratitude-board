@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import "../styles.css";
 import Typography from "@mui/joy/Typography";
 import Button from "@mui/joy/Button";
 import Box from "@mui/joy/Box";
@@ -52,58 +53,53 @@ export default function Home() {
   const [postTitle, setPostTitle] = useState("");
 
   return (
-    <Box
-    sx={{
-    backgroundImage: 'url("flowers.png")',
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    minHeight: "100vh",
-    //padding: "30px",
-    boxSizing: "border-box",
-    }}
-    >
-
-
-
-    <Box padding="30px">
-      <Box display="flex" justifyContent="space-between" marginBottom="40px">
-        <Box>
+    <Box className="body">
+      <Box padding="30px">
+        <Box display="flex" justifyContent="space-between" marginBottom="40px">
+          <Box>
           <Typography
-          level="h1"
-          mb={1}
-          sx={{
-          fontFamily: 'BlinkMacSystemFont',
-          fontSize: "500%",
-          fontWeight: "bold",
-          }}
+            level="h1"
+            mb={1}
+            sx={{
+              fontFamily: 'BlinkMacSystemFont',
+              color: '#8ec2b9',
+              fontSize: '600%',
+              fontWeight: 'bold',
+            }}
           >
           Grateful.
           </Typography>
-          {/* '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"', */}
-
       <Typography
         level="title-lg"
         sx={{
-          fontFamily: '"Segoe UI"',
+          fontFamily: 'Segoe UI',
+          color: '#5b958b',
+          fontWeight: 'bold',
           fontSize: '120%',
         }}
       >
-        A community board for sharing lifes gratitudes, no matter how big or small ✨
+        A community board for sharing lifes everyday gratitudes, no matter how big or small ☁️
       </Typography>
         </Box>
         <Box alignSelf="flex-start">
           <Button
+            className="button"
             variant="soft"
-            size="lg"
+            sx={{
+              backgroundColor: '#7caa9f',
+              color: 'white',
+              padding: '1.5rem 2rem',
+              fontSize: '1.4rem',
+              fontWeight: 'bold',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              minWidth: '150px',
+              height: '70px',
+              '&:hover': {
+                backgroundColor: '#4f7c71',
+                transform: 'scale(1.02)'
+              }
+            }}
             startDecorator={<Add />}
             onClick={() => setOpenForm(true)}
           >
@@ -126,7 +122,7 @@ export default function Home() {
             }}
             placeholder="I am grateful for..."
           />
-          <Button
+          <Button className="button"
             type="submit"
             variant="soft"
             onClick={async () => {
