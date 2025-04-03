@@ -1,3 +1,3 @@
 # Grateful.
-An online community board to share everyday moments of gratitude
-https://grateful.ltd/
+An online community board for sharing everyday moments of gratitudes, no matter how big or small ☁️
+https://www.gratefulboard.site/
